@@ -4,24 +4,29 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.ComponentActivity
+import kotlin.reflect.KClass
 
-class MainActivity : ComponentActivity() {
+class LostPasswordActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         //liaison avec le xml (pour la vue)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_lost_password)
     }
 
-    //signature attendue pour un evenemenet onClick : view: View
-    fun onClickBtnDemo(view: View){
-        //ouvrir la page de login
-        var intent = Intent(this, LoginActivity::class.java);
+    private fun openActivity(classType : KClass<*>){
+        var intent = Intent(this, classType.java);
         //si on souhaite, on peut mettre des paramètres
         intent.putExtra("id", 10.0);
 
         //ouvrir
         startActivity(intent);
     }
+
+    fun onClickTextLogin(view: View){
+        openActivity(LoginActivity::class)
+    }
+
+
 }
 

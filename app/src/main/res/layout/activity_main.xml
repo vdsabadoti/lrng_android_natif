@@ -31,6 +31,8 @@
         android:layout_weight="1"
         android:textColor="@color/white"
         android:textSize="50sp"
-        android:text="toto" />
+        android:text="Open Login"
+        android:onClick="onClickBtnDemo"
+        />
 
 </LinearLayout>

@@ -10,14 +10,14 @@
     >
 
     <LinearLayout
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/strong_purple"
+        android:background="@drawable/primary_background"
         android:paddingTop="20dp"
         >
 
@@ -121,18 +121,44 @@
             android:inputType="textPassword"
             />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
-
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="sign up"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account ?"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textAllCaps="false"
+                android:padding="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/log_in"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textAllCaps="false"
+                android:padding="10dp"
+                android:onClick="onClickTextLogin"
+                />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

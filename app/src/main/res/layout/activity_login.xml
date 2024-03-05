@@ -69,15 +69,16 @@
             />
 
         <TextView
+            android:id="@+id/forgot_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Forgot password ?"
             android:layout_marginLeft="10sp"
             android:padding="10dp"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textAlignment="textStart"
             android:textAllCaps="false"
+            android:onClick="onClickTextLostPassword"
             />
 
         <LinearLayout
@@ -102,14 +103,15 @@
 
 
         <TextView
+            android:id="@+id/sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign up"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textAlignment="center"
             android:padding="10dp"
             android:textAllCaps="false"
+            android:onClick="onClickTextSignUp"
             />
 
         <LinearLayout
