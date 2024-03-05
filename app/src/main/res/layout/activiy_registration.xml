@@ -1,171 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/back"
-    android:layout_gravity="center_vertical"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    >
+    <data>
+        <variable
+            name="person"
+            type="com.example.demoeni.Person"
+            />
+    </data>
 
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/primary_background"
-        android:paddingTop="20dp"
+        android:background="@drawable/back"
+        android:layout_gravity="center_vertical"
+
         >
 
         <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:gravity="center_horizontal"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Registration"
-                android:textColor="@color/white"
-                android:layout_marginVertical="15dp"
-                android:textSize="40sp"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                />
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:tint="@color/white"
-                android:src="@drawable/registration_icon"
-                android:contentDescription="Registration Icon"
-                android:gravity="center_horizontal"
-                />
-
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/edtForm"
-            android:hint="Nickname"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/edtForm"
-            android:hint="Mail"
-            android:inputType="textEmailAddress"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/edtForm"
-            android:hint="Postal code"
-            android:inputType="number"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/edtForm"
-            android:hint="City"
-            />
-
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/edtForm"
-            android:hint="Phone number"
-            android:inputType="phone"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/edtForm"
-            android:hint="Password"
-            android:inputType="textPassword"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/edtForm"
-            android:hint="Repeat your password"
-            android:inputType="textPassword"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="sign up"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
+            android:background="@drawable/primary_background"
+            android:paddingTop="20dp"
             >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Already have an account ?"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textAllCaps="false"
-                android:padding="10dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/log_in"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textAllCaps="false"
-                android:padding="10dp"
-                android:onClick="onClickTextLogin"
+                android:paddingHorizontal="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Registration"
+                    android:textColor="@color/white"
+                    android:layout_marginVertical="15dp"
+                    android:textSize="40sp"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    />
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:tint="@color/white"
+                    android:src="@drawable/registration_icon"
+                    android:contentDescription="Registration Icon"
+                    android:gravity="center_horizontal"
+                    />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/edtForm"
+                android:text="@={person.nickname}"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/edtForm"
+                android:hint="Mail"
+                android:inputType="textEmailAddress"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/edtForm"
+                android:hint="Postal code"
+                android:inputType="number"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/edtForm"
+                android:hint="City"
+                />
+
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/edtForm"
+                android:hint="Phone number"
+                android:inputType="phone"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/edtForm"
+                android:hint="Password"
+                android:inputType="textPassword"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/edtForm"
+                android:hint="Repeat your password"
+                android:inputType="textPassword"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sign up"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Already have an account ?"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textAllCaps="false"
+                    android:padding="10dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/log_in"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textAllCaps="false"
+                    android:padding="10dp"
+                    android:onClick="onClickTextLogin"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
-
     </LinearLayout>
-
-</LinearLayout>
+</layout>

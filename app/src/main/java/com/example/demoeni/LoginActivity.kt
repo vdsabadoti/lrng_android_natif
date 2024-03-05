@@ -1,5 +1,6 @@
 package com.example.demoeni
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
@@ -11,33 +12,33 @@ import kotlin.reflect.KClass
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState);
         //liaison avec le xml (pour la vue)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_login);
 
         //on recupère les elements de la vue par ID
-        val mTextViewForgotPassword = findViewById<TextView>(R.id.forgot_password)
-        val mTextViewSignUp = findViewById<TextView>(R.id.sign_up)
+        val mTextViewForgotPassword = findViewById<TextView>(R.id.forgot_password);
+        val mTextViewSignUp = findViewById<TextView>(R.id.sign_up);
 
         // Declaring strings
-        val sForgotPassword = "Forgot password ?"
-        val sSignUp = "Sign up"
+        val sForgotPassword = "Forgot password ?";
+        val sSignUp = "Sign up";
 
         // Creating a Spannable String
         // from the above string
-        val sForgotPasswordSpannable = SpannableString(sForgotPassword)
-        val sSignUpSpannable = SpannableString(sSignUp)
+        val sForgotPasswordSpannable = SpannableString(sForgotPassword);
+        val sSignUpSpannable = SpannableString(sSignUp);
 
         // Setting underline style from
         // position 0 till length of
         // the spannable string
-        sForgotPasswordSpannable.setSpan(UnderlineSpan(), 0, sForgotPasswordSpannable.length, 0)
-        sSignUpSpannable.setSpan(UnderlineSpan(), 0, sSignUpSpannable.length, 0)
+        sForgotPasswordSpannable.setSpan(UnderlineSpan(), 0, sForgotPasswordSpannable.length, 0);
+        sSignUpSpannable.setSpan(UnderlineSpan(), 0, sSignUpSpannable.length, 0);
 
         // Displaying spannable
         // string in TextView
-        mTextViewForgotPassword.text = sForgotPasswordSpannable
-        mTextViewSignUp.text = sSignUpSpannable
+        mTextViewForgotPassword.text = sForgotPasswordSpannable;
+        mTextViewSignUp.text = sSignUpSpannable;
 
 
     }
@@ -51,11 +52,23 @@ class LoginActivity : ComponentActivity() {
     }
 
     fun onClickTextSignUp(view: View){
-        openActivity(RegisterActivity::class)
+        openActivity(RegisterActivity::class);
     }
 
     fun onClickTextLostPassword(view: View){
-        openActivity(LostPasswordActivity::class)
+        openActivity(LostPasswordActivity::class);
+    }
+
+    fun onClickModalDisplay(view: View){
+        //le code pour construire un modal
+        var builder = AlertDialog.Builder(this);
+        builder.setTitle("Loading");
+        builder.setMessage("Login in progress");
+        builder.setPositiveButton("Ok") { dialog, which ->
+            dialog.dismiss();
+        };
+        //afficher le modal
+        builder.show();
     }
 
 }
