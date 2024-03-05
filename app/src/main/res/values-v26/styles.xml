@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="edtForm">
+        <item name="android:background">@drawable/rounded_input</item>
+        <item name="android:layout_marginVertical">5dp</item>
+        <item name="android:layout_marginHorizontal">10dp</item>
+    </style>
+
+    <style name="edtFormGradient">
+        <item name="android:background">@drawable/rounded_gradient_input</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+    </style>
+
+    <style name="edtFormIcon">
+        <item name="android:background">@drawable/rounded_input</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
+    <style name="edtTransparent" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/transparent_input</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+    </style>
+
+    <style name="primaryBtn" parent="android:Widget.Material.Button">
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginHorizontal">50dp</item>
+    </style>
+
+</resources>
