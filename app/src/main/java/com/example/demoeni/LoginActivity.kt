@@ -63,7 +63,7 @@ class LoginActivity : ComponentActivity() {
         //le code pour construire un modal
         var builder = AlertDialog.Builder(this);
         builder.setTitle("Loading");
-        builder.setMessage("Login in progress");
+        builder.setMessage("Login successfully");
         builder.setPositiveButton("Ok") { dialog, which ->
             dialog.dismiss();
         };
