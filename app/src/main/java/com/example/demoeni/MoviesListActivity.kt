@@ -50,6 +50,8 @@ class MoviesListActivity : ComponentActivity() {
             }
 
         fun edit(view: View){
+            val tag = Integer.parseInt(view.tag.toString());
+            openActivity(MovieEditActivity::class, tag)
         }
 
         fun delete(view: View){

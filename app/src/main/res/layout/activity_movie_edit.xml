@@ -39,7 +39,7 @@
                 android:padding="10dp"
                 android:layout_height="0dp"
                 android:layout_weight="2"
-                android:text="@{movie.title}"
+                android:text="Edit movie"
                 android:textSize="40sp"
                 android:textColor="@color/white"
                 />
@@ -54,7 +54,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:orientation="vertical"
             android:background="@color/black">
             <LinearLayout
@@ -67,12 +67,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="Duration : "/>
+                    android:text="Title : "/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="@={movie.title}"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/black"
+                android:padding="20dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@{movie.duration}"/>
+                    android:text="Duration : "/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="@={movie.duration}"/>
             </LinearLayout>
 
             <LinearLayout
@@ -86,11 +104,11 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:text="Year : "/>
-                <TextView
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@{movie.year}"/>
+                    android:text="@={movie.year}"/>
             </LinearLayout>
 
             <LinearLayout
@@ -104,12 +122,28 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:text="Synopsis : "/>
-                <TextView
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/white"
+                    android:text="@={movie.synopsis}"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/black"
+                android:padding="20dp">
+                <Button
+                    android:id="@+id/save"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@{movie.synopsis}"/>
+                    style="@style/edtFormGradient"
+                    android:text="Save"/>
             </LinearLayout>
+
 
         </LinearLayout>
     </LinearLayout>
