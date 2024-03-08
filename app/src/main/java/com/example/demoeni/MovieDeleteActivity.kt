@@ -1,18 +1,18 @@
 package com.example.demoeni
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.databinding.ActivityMovieDetailBinding
+import com.example.demoeni.databinding.ActivityMovieEditBinding
 import com.example.demoeni.services.MovieService
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 
-class MovieDetailActivity : ComponentActivity() {
-
-    lateinit var vm: ActivityMovieDetailBinding;
+class MovieDeleteActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,15 +20,13 @@ class MovieDetailActivity : ComponentActivity() {
         val b = intent.extras
         val id = b!!.getInt("id");
 
-        vm = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail);
-
-        //Recuperer les données d'un API
+        //Envoyer une requete POST à l'API
         lifecycleScope.launch {
-            val movie = MovieService.MovieApi.retrofitService.getMovieById(id);
-            vm.movie = movie;
-            //Picasso.get().load("https://upload.wikimedia.org/wikipedia/en/0/0c/The_VelociPastor.jpg").into(vm.thumbnail)
+            MovieService.MovieApi.retrofitService.delete(id);
         }
 
-    }
+        val intent = Intent(this, MoviesListActivity::class.java);
+        startActivity(intent);
 
-}
+        }
+    }

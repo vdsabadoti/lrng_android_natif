@@ -29,53 +29,28 @@ class MoviesListActivity : ComponentActivity() {
         vm.refresh.setOnClickListener {
             refresh();
         }
-
         vm.newMovie.setOnClickListener {
             create();
         }
-
-        lifecycleScope.launch {
-            val movies = MovieService.MovieApi.retrofitService.getMovies()
-            adapter.submitList(movies);
-        }
+        refresh();
 
         }
 
         fun refresh(){
             lifecycleScope.launch {
+                //TODO Call modal
                 val movies = MovieService.MovieApi.retrofitService.getMovies()
                 adapter.submitList(movies);
+                //TODO Close modal
             }
         }
 
         fun create(){
-            openActivity(MovieRegisterActivity::class, 0)
+            openActivity(MovieRegisterActivity::class)
         }
 
-        fun detail(view: View){
-            val tag = Integer.parseInt(view.tag.toString());
-            openActivity(MovieDetailActivity::class, tag)
-            }
-
-        fun edit(view: View){
-            val tag = Integer.parseInt(view.tag.toString());
-            openActivity(MovieEditActivity::class, tag)
-        }
-
-        fun delete(view: View){
-            val tag = Integer.parseInt(view.tag.toString());
-            lifecycleScope.launch {
-                MovieService.MovieApi.retrofitService.delete(tag)
-            }
-            openActivity(MoviesListActivity::class, tag)
-    }
-
-    private fun openActivity(classType: KClass<*>, tag: Int?){
+    private fun openActivity(classType: KClass<*>){
         val intent = Intent(this, classType.java);
-        //si on souhaite, on peut mettre des paramètres
-        intent.putExtra("id", tag);
-
-        //ouvrir
         startActivity(intent);
     }
 

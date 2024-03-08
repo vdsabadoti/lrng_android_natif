@@ -110,7 +110,6 @@
                     android:textColor="@color/white"
                     android:text="@{movie.synopsis}"/>
             </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
 </layout>
