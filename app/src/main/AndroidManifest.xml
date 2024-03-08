@@ -21,6 +21,12 @@
             android:exported="true">
 
         </activity>
+
+        <activity
+            android:name=".MovieRegisterActivity"
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".MovieEditActivity"
             android:exported="true">

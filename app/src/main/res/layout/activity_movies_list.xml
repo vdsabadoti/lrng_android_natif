@@ -29,5 +29,13 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
 
+        <Button
+            android:id="@+id/newMovie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            style="@style/edtFormGradient"
+            android:text="ADD MOVIE"/>
+
     </LinearLayout>
 </layout>

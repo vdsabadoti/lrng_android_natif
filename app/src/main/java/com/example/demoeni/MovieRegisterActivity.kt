@@ -2,6 +2,7 @@ package com.example.demoeni
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Movie
 import android.os.Bundle
 import android.view.View
 import androidx.activity.ComponentActivity
@@ -9,40 +10,36 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.databinding.ActivityMovieDetailBinding
 import com.example.demoeni.databinding.ActivityMovieEditBinding
+import com.example.demoeni.databinding.ActivityMovieRegisterBinding
 import com.example.demoeni.services.MovieService
+import com.example.demoeni.viewmodel.Film
 import kotlinx.coroutines.launch
 
-class MovieEditActivity : ComponentActivity() {
+class MovieRegisterActivity : ComponentActivity() {
 
-    lateinit var vm : ActivityMovieEditBinding;
+    lateinit var vm : ActivityMovieRegisterBinding;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val b = intent.extras
-        val id = b!!.getInt("id");
 
-        vm = DataBindingUtil.setContentView(this, R.layout.activity_movie_edit);
+        vm = DataBindingUtil.setContentView(this, R.layout.activity_movie_register);
 
-        vm.save.setOnClickListener(){
-            save();
+        vm.create.setOnClickListener(){
+            create();
         }
 
-        //Recuperer les données d'un API
-        lifecycleScope.launch {
-            val movie = MovieService.MovieApi.retrofitService.getMovieById(id);
-            vm.movie = movie;
-        }
+        vm.movie = Film(10);
 
         }
-        fun save(){
+        fun create(){
             lifecycleScope.launch {
-                MovieService.MovieApi.retrofitService.editMovieById(vm.movie?.id, vm.movie)
+                MovieService.MovieApi.retrofitService.editMovieById(vm.movie)
             }
             //le code pour construire un modal
             val builder = AlertDialog.Builder(this);
             builder.setTitle("Loading");
-            builder.setMessage("Are you sure you want to update ?");
+            builder.setMessage("Are you sure you qant to create ?");
             builder.setPositiveButton("Yes") { dialog, which ->
                 dialog.dismiss();
                 val intent = Intent(this, MoviesListActivity::class.java);

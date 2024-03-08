@@ -30,6 +30,10 @@ class MoviesListActivity : ComponentActivity() {
             refresh();
         }
 
+        vm.newMovie.setOnClickListener {
+            create();
+        }
+
         lifecycleScope.launch {
             val movies = MovieService.MovieApi.retrofitService.getMovies()
             adapter.submitList(movies);
@@ -44,6 +48,10 @@ class MoviesListActivity : ComponentActivity() {
             }
         }
 
+        fun create(){
+            openActivity(MovieRegisterActivity::class, 0)
+        }
+
         fun detail(view: View){
             val tag = Integer.parseInt(view.tag.toString());
             openActivity(MovieDetailActivity::class, tag)
@@ -55,6 +63,11 @@ class MoviesListActivity : ComponentActivity() {
         }
 
         fun delete(view: View){
+            val tag = Integer.parseInt(view.tag.toString());
+            lifecycleScope.launch {
+                MovieService.MovieApi.retrofitService.delete(tag)
+            }
+            openActivity(MoviesListActivity::class, tag)
     }
 
     private fun openActivity(classType: KClass<*>, tag: Int?){

@@ -1,6 +1,6 @@
 package com.example.demoeni.viewmodel
 
-class Film(var id: Int? = -1, var title: String? ="", var synopsis: String? ="", var duration: String? ="", var year: String? = "") {
+class Film(var id: Int, var title: String? ="", var synopsis: String? ="", var duration: String? ="", var year: String? = "") {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

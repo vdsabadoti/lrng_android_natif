@@ -6,7 +6,10 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -28,6 +31,15 @@ interface MovieService {
 
     @GET("movie/{id}")
     suspend fun getMovieById(@Path("id") id : Int) : Film
+
+    @POST("movie/edit/{id}")
+    suspend fun editMovieById(@Path("id") id : Int?, @Body film : Film?)
+
+    @POST("movie/create")
+    suspend fun editMovieById( @Body film : Film?)
+
+    @DELETE("movie/delete/{id}")
+    suspend fun delete(@Path("id") id: Int?)
 
 
     object MovieApi {
