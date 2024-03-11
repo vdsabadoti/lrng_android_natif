@@ -2,7 +2,7 @@
    <item>
         <shape android:shape="rectangle" >
             <solid
-                android:color="@color/strong_purple" >
+                android:color="@color/transparent" >
             </solid>
 
             <padding

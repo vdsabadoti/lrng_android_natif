@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.databinding.ActivityMovieDetailBinding
 import com.example.demoeni.databinding.ActivityMovieEditBinding
 import com.example.demoeni.services.MovieService
+import com.example.demoeni.viewmodel.User
 import kotlinx.coroutines.launch
 
 class MovieEditActivity : ComponentActivity() {
@@ -31,7 +32,7 @@ class MovieEditActivity : ComponentActivity() {
         //Recuperer les données d'un API
         lifecycleScope.launch {
 
-            val response = MovieService.MovieApi.retrofitService.getMovieById(id);
+            val response = MovieService.MovieApi.retrofitService.getMovieById(User.getToken(), id);
             if (response.code == "200") {
                 vm.movie = response.data;
             }
@@ -39,12 +40,12 @@ class MovieEditActivity : ComponentActivity() {
         }
         private fun save(){
             lifecycleScope.launch {
-                val response = MovieService.MovieApi.retrofitService.editMovieById(vm.movie?.id, vm.movie);
+                val response = MovieService.MovieApi.retrofitService.editMovieById(User.getToken(), vm.movie?.id, vm.movie);
                 if (response.code == "200") {
                     //Update the movie with the movie created in DB
                     vm.movie = response.data;
                     //Modal in the screen to announce successfully action
-                    val builder = AlertDialog.Builder(applicationContext);
+                    val builder = AlertDialog.Builder(this@MovieEditActivity);
                     builder.setTitle("Update");
                     builder.setMessage(response.message);
                     builder.setPositiveButton("OK") { dialog, which ->

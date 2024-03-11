@@ -1,4 +1,4 @@
-package com.example.demoeni
+package com.example.demoeni.viewmodel
 
 class BusinessResponse<T> {
 

@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.databinding.ActivityMovieDetailBinding
 import com.example.demoeni.services.MovieService
+import com.example.demoeni.viewmodel.User
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 
@@ -24,7 +25,7 @@ class MovieDetailActivity : ComponentActivity() {
 
         //Recuperer les données d'un API
         lifecycleScope.launch {
-            val response = MovieService.MovieApi.retrofitService.getMovieById(id);
+            val response = MovieService.MovieApi.retrofitService.getMovieById(User.getToken(), id);
             if (response.code == "200") {
                 vm.movie = response.data;
             }

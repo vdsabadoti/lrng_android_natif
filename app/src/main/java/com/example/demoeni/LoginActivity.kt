@@ -8,17 +8,29 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import com.example.demoeni.databinding.ActivityLoginBinding
+import com.example.demoeni.services.LoginService
+import com.example.demoeni.services.MovieService
+import com.example.demoeni.viewmodel.User
+import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
 class LoginActivity : ComponentActivity() {
+
+    lateinit var vm : ActivityLoginBinding;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         //liaison avec le xml (pour la vue)
-        setContentView(R.layout.activity_login);
+        vm = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        vm.user = User();
 
         //on recupère les elements de la vue par ID
-        val mTextViewForgotPassword = findViewById<TextView>(R.id.forgot_password);
-        val mTextViewSignUp = findViewById<TextView>(R.id.sign_up);
+        val mTextViewForgotPassword = vm.forgotPassword;
+        val mTextViewSignUp = vm.signUp;
 
         // Declaring strings
         val sForgotPassword = "Forgot password ?";
@@ -61,14 +73,29 @@ class LoginActivity : ComponentActivity() {
 
     fun onClickModalDisplay(view: View){
         //le code pour construire un modal
-        var builder = AlertDialog.Builder(this);
-        builder.setTitle("Loading");
-        builder.setMessage("Login successfully");
-        builder.setPositiveButton("Ok") { dialog, which ->
-            dialog.dismiss();
-        };
-        //afficher le modal
-        builder.show();
+        lifecycleScope.launch {
+
+            val response = LoginService.LoginApi.retrofitService.login(vm.user!!)
+            if (response.code == "200") {
+                User.setToken(response.data);
+
+                var builder = AlertDialog.Builder(this@LoginActivity);
+                builder.setTitle(response.code);
+                builder.setMessage(User.getToken().toString());
+                builder.setPositiveButton("Ok") { dialog, which ->
+                    dialog.dismiss();
+                    val intent = Intent(applicationContext, MoviesListActivity::class.java);
+                    startActivity(intent);
+                };
+                //afficher le modal
+                builder.show();
+            }
+
+
+
+        }
+
+
     }
 
 }

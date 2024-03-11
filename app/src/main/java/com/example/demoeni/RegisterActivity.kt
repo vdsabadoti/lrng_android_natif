@@ -6,9 +6,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.databinding.ActiviyRegistrationBinding
+import com.example.demoeni.services.RegistrationService
 import com.example.demoeni.viewmodel.Person
 import com.example.demoeni.viewmodel.RegisterViewModel
+import com.example.demoeni.viewmodel.User
+import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
 class RegisterActivity : ComponentActivity() {
@@ -19,7 +23,7 @@ class RegisterActivity : ComponentActivity() {
 
         myView = DataBindingUtil.setContentView(this, R.layout.activiy_registration);
 
-        myView.registration = RegisterViewModel(Person(), "");
+        myView.registration = RegisterViewModel(User(), "");
 
     }
 
@@ -42,17 +46,19 @@ class RegisterActivity : ComponentActivity() {
 
     fun onClickModalDisplay(view: View){
         //le code pour construire un modal
-        val builder = AlertDialog.Builder(this);
-        builder.setTitle("Registration");
-        builder.setMessage("Your account is being created."  +
-                "Mail : ${myView.registration?.person?.mail}" +
-                "Nickname : ${myView.registration?.person?.nickname}" +
-                "City : ${myView.registration?.person?.city}");
-        builder.setPositiveButton("Ok") { dialog, which ->
-            dialog.dismiss();
-        };
-        //afficher le modal
-        builder.show();
+        lifecycleScope.launch {
+            val response = RegistrationService.RegistrationApi.retrofitService.registration(myView.registration?.user!!)
+            if (response.code == "200") {
+                val builder = AlertDialog.Builder(this@RegisterActivity);
+                builder.setTitle("Registration");
+                builder.setMessage("User created with success");
+                builder.setPositiveButton("Ok") { dialog, which ->
+                    dialog.dismiss();
+                };
+                //afficher le modal
+                builder.show();
+            }
+        }
     }
 
 

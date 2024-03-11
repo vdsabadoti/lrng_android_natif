@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.databinding.ActivityMoviesListBinding
 import com.example.demoeni.services.MovieService
 import com.example.demoeni.viewmodel.Film
+import com.example.demoeni.viewmodel.User
 import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
@@ -39,7 +40,7 @@ class MoviesListActivity : ComponentActivity() {
         private fun refresh(){
             lifecycleScope.launch {
                 //TODO Call modal
-                val response = MovieService.MovieApi.retrofitService.getMovies();
+                val response = MovieService.MovieApi.retrofitService.getMoviesV2(User.getToken());
 
             if (response.code == "200") {
                 adapter.submitList(response.data);

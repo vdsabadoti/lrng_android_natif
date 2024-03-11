@@ -41,11 +41,7 @@
         <activity
             android:name=".MoviesListActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ListPersonsActivity"
@@ -57,7 +53,17 @@
             android:theme="@style/Theme.DemoEni" />
         <activity
             android:name=".LoginActivity"
-            android:label="Login" />
+            android:label="Login"
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
         <activity
             android:name=".LostPasswordActivity"
             android:label="LostPassword" />

@@ -13,6 +13,7 @@ import com.example.demoeni.databinding.ActivityMovieEditBinding
 import com.example.demoeni.databinding.ActivityMovieRegisterBinding
 import com.example.demoeni.services.MovieService
 import com.example.demoeni.viewmodel.Film
+import com.example.demoeni.viewmodel.User
 import kotlinx.coroutines.launch
 
 class MovieRegisterActivity : ComponentActivity() {
@@ -34,18 +35,21 @@ class MovieRegisterActivity : ComponentActivity() {
         }
         fun create(){
             lifecycleScope.launch {
-                MovieService.MovieApi.retrofitService.editMovieById(vm.movie)
+                val response = MovieService.MovieApi.retrofitService.editMovieById(User.getToken(), vm.movie);
+                if (response.code == "202") {
+                    //le code pour construire un modal
+                    val builder = AlertDialog.Builder(this@MovieRegisterActivity);
+                    builder.setTitle("Loading");
+                    builder.setMessage("Are you sure you qant to create ?");
+                    builder.setPositiveButton("Yes") { dialog, which ->
+                        dialog.dismiss();
+                        val intent = Intent(applicationContext, MoviesListActivity::class.java);
+                        startActivity(intent);
+                    };
+                    //afficher le modal
+                    builder.show();
+                }
             }
-            //le code pour construire un modal
-            val builder = AlertDialog.Builder(this);
-            builder.setTitle("Loading");
-            builder.setMessage("Are you sure you qant to create ?");
-            builder.setPositiveButton("Yes") { dialog, which ->
-                dialog.dismiss();
-                val intent = Intent(this, MoviesListActivity::class.java);
-                startActivity(intent);
-            };
-            //afficher le modal
-            builder.show();
+
         }
     }
