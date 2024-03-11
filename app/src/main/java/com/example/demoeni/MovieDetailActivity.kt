@@ -24,8 +24,11 @@ class MovieDetailActivity : ComponentActivity() {
 
         //Recuperer les données d'un API
         lifecycleScope.launch {
-            val movie = MovieService.MovieApi.retrofitService.getMovieById(id);
-            vm.movie = movie;
+            val response = MovieService.MovieApi.retrofitService.getMovieById(id);
+            if (response.code == "200") {
+                vm.movie = response.data;
+            }
+
             //Picasso.get().load("https://upload.wikimedia.org/wikipedia/en/0/0c/The_VelociPastor.jpg").into(vm.thumbnail)
         }
 

@@ -36,16 +36,20 @@ class MoviesListActivity : ComponentActivity() {
 
         }
 
-        fun refresh(){
+        private fun refresh(){
             lifecycleScope.launch {
                 //TODO Call modal
-                val movies = MovieService.MovieApi.retrofitService.getMovies()
-                adapter.submitList(movies);
-                //TODO Close modal
+                val response = MovieService.MovieApi.retrofitService.getMovies();
+
+            if (response.code == "200") {
+                adapter.submitList(response.data);
+            }
+
+            //TODO Close modal
             }
         }
 
-        fun create(){
+        private fun create(){
             openActivity(MovieRegisterActivity::class)
         }
 

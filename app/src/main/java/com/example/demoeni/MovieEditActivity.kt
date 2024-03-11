@@ -30,25 +30,30 @@ class MovieEditActivity : ComponentActivity() {
 
         //Recuperer les données d'un API
         lifecycleScope.launch {
-            val movie = MovieService.MovieApi.retrofitService.getMovieById(id);
-            vm.movie = movie;
-        }
 
-        }
-        fun save(){
-            lifecycleScope.launch {
-                MovieService.MovieApi.retrofitService.editMovieById(vm.movie?.id, vm.movie)
+            val response = MovieService.MovieApi.retrofitService.getMovieById(id);
+            if (response.code == "200") {
+                vm.movie = response.data;
             }
-            //le code pour construire un modal
-            val builder = AlertDialog.Builder(this);
-            builder.setTitle("Loading");
-            builder.setMessage("Are you sure you want to update ?");
-            builder.setPositiveButton("Yes") { dialog, which ->
-                dialog.dismiss();
-                val intent = Intent(this, MoviesListActivity::class.java);
-                startActivity(intent);
-            };
-            //afficher le modal
-            builder.show();
+        }
+        }
+        private fun save(){
+            lifecycleScope.launch {
+                val response = MovieService.MovieApi.retrofitService.editMovieById(vm.movie?.id, vm.movie);
+                if (response.code == "200") {
+                    //Update the movie with the movie created in DB
+                    vm.movie = response.data;
+                    //Modal in the screen to announce successfully action
+                    val builder = AlertDialog.Builder(applicationContext);
+                    builder.setTitle("Update");
+                    builder.setMessage(response.message);
+                    builder.setPositiveButton("OK") { dialog, which ->
+                        dialog.dismiss();
+                        val intent = Intent(applicationContext, MoviesListActivity::class.java);
+                        startActivity(intent);
+                    };
+                    builder.show();
+                }
+            }
         }
     }

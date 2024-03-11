@@ -1,5 +1,6 @@
 package com.example.demoeni.services
 
+import com.example.demoeni.BusinessResponse
 import com.example.demoeni.viewmodel.Film
 import com.example.demoeni.viewmodel.Person
 import com.squareup.moshi.Moshi
@@ -27,19 +28,19 @@ interface MovieService {
     }
 
     @GET("movies")
-    suspend fun getMovies() : List<Film>
+    suspend fun getMovies() : BusinessResponse<List<Film>>
 
     @GET("movie/{id}")
-    suspend fun getMovieById(@Path("id") id : Int) : Film
+    suspend fun getMovieById(@Path("id") id : Int) : BusinessResponse<Film>
 
     @POST("movie/edit/{id}")
-    suspend fun editMovieById(@Path("id") id : Int?, @Body film : Film?)
+    suspend fun editMovieById(@Path("id") id : Int?, @Body film : Film?) : BusinessResponse<Film>
 
     @POST("movie/create")
-    suspend fun editMovieById( @Body film : Film?)
+    suspend fun editMovieById( @Body film : Film?) : BusinessResponse<Film>
 
     @DELETE("movie/delete/{id}")
-    suspend fun delete(@Path("id") id: Int?)
+    suspend fun delete(@Path("id") id: Int?) : BusinessResponse<Any>
 
 
     object MovieApi {
