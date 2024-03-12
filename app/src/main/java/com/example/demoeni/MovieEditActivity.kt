@@ -3,14 +3,12 @@ package com.example.demoeni
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
-import com.example.demoeni.databinding.ActivityMovieDetailBinding
 import com.example.demoeni.databinding.ActivityMovieEditBinding
 import com.example.demoeni.services.MovieService
-import com.example.demoeni.viewmodel.User
+import com.example.demoeni.utils.User
 import kotlinx.coroutines.launch
 
 class MovieEditActivity : ComponentActivity() {
@@ -32,7 +30,7 @@ class MovieEditActivity : ComponentActivity() {
         //Recuperer les données d'un API
         lifecycleScope.launch {
 
-            val response = MovieService.MovieApi.retrofitService.getMovieById(User.getToken(), id);
+            val response = MovieService.MovieApi.retrofitService.getMovieById(User.getInstance()?.getValidToken(), id);
             if (response.code == "200") {
                 vm.movie = response.data;
             }
@@ -40,7 +38,7 @@ class MovieEditActivity : ComponentActivity() {
         }
         private fun save(){
             lifecycleScope.launch {
-                val response = MovieService.MovieApi.retrofitService.editMovieById(User.getToken(), vm.movie?.id, vm.movie);
+                val response = MovieService.MovieApi.retrofitService.editMovieById(User.getInstance()?.getValidToken(), vm.movie?.id, vm.movie);
                 if (response.code == "200") {
                     //Update the movie with the movie created in DB
                     vm.movie = response.data;
@@ -52,6 +50,14 @@ class MovieEditActivity : ComponentActivity() {
                         dialog.dismiss();
                         val intent = Intent(applicationContext, MoviesListActivity::class.java);
                         startActivity(intent);
+                    };
+                    builder.show();
+                } else {
+                    val builder = AlertDialog.Builder(this@MovieEditActivity);
+                    builder.setTitle("Erreur");
+                    builder.setMessage(response.message);
+                    builder.setPositiveButton("KO") { dialog, which ->
+                        dialog.dismiss();
                     };
                     builder.show();
                 }

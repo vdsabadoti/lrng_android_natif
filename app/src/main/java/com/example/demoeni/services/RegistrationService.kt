@@ -1,9 +1,7 @@
 package com.example.demoeni.services
 
 import com.example.demoeni.viewmodel.BusinessResponse
-import com.example.demoeni.viewmodel.Film
-import com.example.demoeni.viewmodel.Person
-import com.example.demoeni.viewmodel.User
+import com.example.demoeni.utils.User
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit

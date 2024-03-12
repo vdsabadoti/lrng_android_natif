@@ -3,7 +3,7 @@
 
     <data>
         <variable
-            type="com.example.demoeni.viewmodel.User"
+            type="com.example.demoeni.utils.User"
             name="user"
             />
     </data>

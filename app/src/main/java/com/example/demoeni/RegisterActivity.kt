@@ -9,9 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.databinding.ActiviyRegistrationBinding
 import com.example.demoeni.services.RegistrationService
-import com.example.demoeni.viewmodel.Person
 import com.example.demoeni.viewmodel.RegisterViewModel
-import com.example.demoeni.viewmodel.User
+import com.example.demoeni.utils.User
 import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 

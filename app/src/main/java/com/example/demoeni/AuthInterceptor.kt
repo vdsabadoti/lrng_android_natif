@@ -1,33 +1,31 @@
 package com.example.demoeni
-import android.content.Intent
-import androidx.core.content.ContextCompat.startActivity
-import com.example.demoeni.services.LoginService
-import com.example.demoeni.viewmodel.User
-import okhttp3.Interceptor
-import okhttp3.Request
-import okhttp3.Response
-import java.net.HttpURLConnection
-import java.security.AccessController.getContext
 /*
-class AuthInterceptor() : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request()
-        val response = chain.proceed(request)
+class AuthInterceptor: Interceptor {
+  override fun intercept(chain: Interceptor.Chain): Response {
+    val originalRequest = chain.request()
+    val response = chain.proceed(originalRequest)
+    // Check if the response indicates that the access token is expired
+    if (response.code == 401) {
+      // Call the refresh token API to obtain a new access token
+        callRefreshTokenAPI()
 
-        if (response.code == 403) {
-            redirectToLogin()
-        }
-
-        return response
+        // Create a new request with the updated access token
+      val newRequest = originalRequest.newBuilder()
+        .header("Authorization", "Bearer $newAccessToken")
+        .build()
+      // Retry the request with the new access token
+      return chain.proceed(newRequest)
     }
-
-    private fun redirectToLogin() {
-        val intent = Intent(context, LoginActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(intent)
-    }
+    return response
+  }
+  private suspend fun callRefreshTokenAPI() {
+      val response = LoginService.LoginApi.retrofitService.login(User.getUserOnline())
+      if (response.code == "200"){
+          User.setToken(response.data)
+      }
+  }
 }
 
 
 // https://medium.com/@manuchekhrdev/access-token-expiration-refresh-token-retrofit-interceptor-coroutines-c3c75069de86
- */
+*/

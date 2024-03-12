@@ -2,18 +2,14 @@ package com.example.demoeni
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Movie
 import android.os.Bundle
-import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
-import com.example.demoeni.databinding.ActivityMovieDetailBinding
-import com.example.demoeni.databinding.ActivityMovieEditBinding
 import com.example.demoeni.databinding.ActivityMovieRegisterBinding
 import com.example.demoeni.services.MovieService
 import com.example.demoeni.viewmodel.Film
-import com.example.demoeni.viewmodel.User
+import com.example.demoeni.utils.User
 import kotlinx.coroutines.launch
 
 class MovieRegisterActivity : ComponentActivity() {
@@ -35,7 +31,7 @@ class MovieRegisterActivity : ComponentActivity() {
         }
         fun create(){
             lifecycleScope.launch {
-                val response = MovieService.MovieApi.retrofitService.editMovieById(User.getToken(), vm.movie);
+                val response = MovieService.MovieApi.retrofitService.editMovieById(User.getInstance()?.getValidToken(), vm.movie);
                 if (response.code == "202") {
                     //le code pour construire un modal
                     val builder = AlertDialog.Builder(this@MovieRegisterActivity);
@@ -45,6 +41,15 @@ class MovieRegisterActivity : ComponentActivity() {
                         dialog.dismiss();
                         val intent = Intent(applicationContext, MoviesListActivity::class.java);
                         startActivity(intent);
+                    };
+                    //afficher le modal
+                    builder.show();
+                } else {
+                    val builder = AlertDialog.Builder(this@MovieRegisterActivity);
+                    builder.setTitle("Not autho");
+                    builder.setMessage("Not auth");
+                    builder.setPositiveButton("Yes") { dialog, which ->
+                        dialog.dismiss();
                     };
                     //afficher le modal
                     builder.show();
