@@ -137,6 +137,7 @@
                 />
 
             <Button
+                android:id="@+id/singUpBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="sign up"
@@ -164,14 +165,14 @@
                     />
 
                 <TextView
+                    android:id="@+id/loginBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/log_in"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textAllCaps="false"
                     android:padding="10dp"
-                    android:onClick="onClickTextLogin"
+                    android:text="@{registration.textValue}"
                     />
 
             </LinearLayout>

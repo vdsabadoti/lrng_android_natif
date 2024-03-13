@@ -25,13 +25,15 @@ class MovieEditActivity : ComponentActivity() {
         vm.save.setOnClickListener(){
             save();
         }
-
         //Recuperer les données d'un API
         lifecycleScope.launch {
-
+            Helpers.showProgressDialog(this@MovieEditActivity, "Loading");
             val response = MovieService.MovieApi.retrofitService.getMovieById(User.getInstance()?.getValidToken(), id);
+            Helpers.closeProgressDialog()
             if (response.code == "200") {
                 vm.movie = response.data;
+            } else {
+                Helpers.showAlertDialog(this@MovieEditActivity, "You seem not authorized to do that..", "Error", MoviesListActivity::class)
             }
         }
         }
