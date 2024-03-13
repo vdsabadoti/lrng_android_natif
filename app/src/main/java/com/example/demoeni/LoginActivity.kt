@@ -40,7 +40,7 @@ class LoginActivity : ComponentActivity() {
         }
 
         vm.login.setOnClickListener(){
-            loginViewModel.login(this@LoginActivity, loginViewModel.person)
+            loginViewModel.login(this@LoginActivity)
         }
 
     }

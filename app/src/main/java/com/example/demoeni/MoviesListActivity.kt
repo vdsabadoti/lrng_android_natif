@@ -2,54 +2,53 @@ package com.example.demoeni
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.databinding.ActivityMoviesListBinding
 import com.example.demoeni.services.MovieService
 import com.example.demoeni.utils.Helpers
 import com.example.demoeni.viewmodel.Film
 import com.example.demoeni.utils.User
+import com.example.demoeni.viewmodel.LoginViewModel
+import com.example.demoeni.viewmodel.MovieListsViewModel
 import kotlinx.coroutines.launch
 
 class MoviesListActivity : ComponentActivity() {
 
     lateinit var vm : ActivityMoviesListBinding;
-    lateinit var dataList : MutableLiveData<MutableList<Film>>
-    var adapter = FilmAdapter() ;
+    val moviesListsViewModel : MovieListsViewModel by viewModels();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         vm = DataBindingUtil.setContentView(this, R.layout.activity_movies_list);
+        vm.lifecycleOwner = this;
+        vm.moviesListsViewModel = moviesListsViewModel;
 
-        vm.rvFilms.adapter = adapter;
+        vm.rvFilms.adapter = moviesListsViewModel.adapter;
 
+        //If inside moviesListViewModel the movies observable change its value
+        //this function is called and the movies list is sent to the adapter
+        moviesListsViewModel.movies.observe(this, Observer{
+            moviesListsViewModel.adapter.submitList(it)
+        })
+
+        //call API to get movies from DB if button is clicked
         vm.refresh.setOnClickListener {
-            refresh();
+            moviesListsViewModel.refresh(this@MoviesListActivity);
         }
+
+        //call function to change activity : create movie activity
         vm.newMovie.setOnClickListener {
-            create();
-        }
-        refresh();
-
+            moviesListsViewModel.create(this@MoviesListActivity);
         }
 
-        private fun refresh(){
-            lifecycleScope.launch {
-                Helpers.showProgressDialog(this@MoviesListActivity, "Loading");
-                val response = MovieService.MovieApi.retrofitService.getMoviesV2(User.getInstance()?.getValidToken());
-            if (response.code == "200") {
-                adapter.submitList(response.data);
-            } else {
-                Helpers.showAlertDialog(this@MoviesListActivity, "No movies for you", "Error", LoginActivity::class)
-            }
-                Helpers.closeProgressDialog();
-            }
-        }
+        //Call API to get movies from DB
+        moviesListsViewModel.refresh(this@MoviesListActivity);
 
-        private fun create(){
-            Helpers.openActivity(this, MovieRegisterActivity::class)
         }
 
     }

@@ -20,7 +20,7 @@ class LoginViewModel(var person: Person = Person()) :
         Helpers.openActivity(context, classType)
     }
 
-    fun login(context: Context, person: Person){
+    fun login(context: Context){
         viewModelScope.launch {
             Helpers.showProgressDialog(context, "Loading");
             val response = LoginService.LoginApi.retrofitService.login(person)

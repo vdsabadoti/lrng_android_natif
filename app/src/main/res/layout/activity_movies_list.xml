@@ -5,6 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MoviesListActivity">
 
+    <data>
+        <variable
+            type="com.example.demoeni.viewmodel.MovieListsViewModel"
+            name="moviesListsViewModel"
+            />
+    </data>
+
     <LinearLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
