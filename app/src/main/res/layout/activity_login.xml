@@ -3,8 +3,8 @@
 
     <data>
         <variable
-            type="com.example.demoeni.utils.User"
-            name="user"
+            type="com.example.demoeni.viewmodel.Person"
+            name="person"
             />
     </data>
 
@@ -66,7 +66,7 @@
                 style="@style/edtFormIcon"
                 android:hint="Mail"
                 android:inputType="textEmailAddress"
-                android:text="@={user.mail}"
+                android:text="@={person.mail}"
                 />
 
             <EditText
@@ -76,7 +76,7 @@
                 style="@style/edtFormIcon"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:text="@={user.password}"
+                android:text="@={person.password}"
                 />
 
             <TextView

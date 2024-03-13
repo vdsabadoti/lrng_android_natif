@@ -1,13 +1,12 @@
 package com.example.demoeni
 
-import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.databinding.ActivityMovieEditBinding
 import com.example.demoeni.services.MovieService
+import com.example.demoeni.utils.Helpers
 import com.example.demoeni.utils.User
 import kotlinx.coroutines.launch
 
@@ -38,28 +37,14 @@ class MovieEditActivity : ComponentActivity() {
         }
         private fun save(){
             lifecycleScope.launch {
+                Helpers.showProgressDialog(this@MovieEditActivity, "Loading");
                 val response = MovieService.MovieApi.retrofitService.editMovieById(User.getInstance()?.getValidToken(), vm.movie?.id, vm.movie);
+                Helpers.closeProgressDialog()
                 if (response.code == "200") {
-                    //Update the movie with the movie created in DB
                     vm.movie = response.data;
-                    //Modal in the screen to announce successfully action
-                    val builder = AlertDialog.Builder(this@MovieEditActivity);
-                    builder.setTitle("Update");
-                    builder.setMessage(response.message);
-                    builder.setPositiveButton("OK") { dialog, which ->
-                        dialog.dismiss();
-                        val intent = Intent(applicationContext, MoviesListActivity::class.java);
-                        startActivity(intent);
-                    };
-                    builder.show();
+                    Helpers.showAlertDialog(this@MovieEditActivity, "The movie was updated", "Success", MoviesListActivity::class)
                 } else {
-                    val builder = AlertDialog.Builder(this@MovieEditActivity);
-                    builder.setTitle("Erreur");
-                    builder.setMessage(response.message);
-                    builder.setPositiveButton("KO") { dialog, which ->
-                        dialog.dismiss();
-                    };
-                    builder.show();
+                    Helpers.showAlertDialog(this@MovieEditActivity, "You seem not authorized to do that..", "Error", MoviesListActivity::class)
                 }
             }
         }

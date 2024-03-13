@@ -1,13 +1,12 @@
 package com.example.demoeni
 
-import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.databinding.ActivityMovieRegisterBinding
 import com.example.demoeni.services.MovieService
+import com.example.demoeni.utils.Helpers
 import com.example.demoeni.viewmodel.Film
 import com.example.demoeni.utils.User
 import kotlinx.coroutines.launch
@@ -31,28 +30,13 @@ class MovieRegisterActivity : ComponentActivity() {
         }
         fun create(){
             lifecycleScope.launch {
+                Helpers.showProgressDialog(this@MovieRegisterActivity, "Loading");
                 val response = MovieService.MovieApi.retrofitService.editMovieById(User.getInstance()?.getValidToken(), vm.movie);
+                Helpers.closeProgressDialog()
                 if (response.code == "202") {
-                    //le code pour construire un modal
-                    val builder = AlertDialog.Builder(this@MovieRegisterActivity);
-                    builder.setTitle("Loading");
-                    builder.setMessage("Are you sure you qant to create ?");
-                    builder.setPositiveButton("Yes") { dialog, which ->
-                        dialog.dismiss();
-                        val intent = Intent(applicationContext, MoviesListActivity::class.java);
-                        startActivity(intent);
-                    };
-                    //afficher le modal
-                    builder.show();
+                    Helpers.showAlertDialog(this@MovieRegisterActivity, "The movie was created", "Success", MoviesListActivity::class)
                 } else {
-                    val builder = AlertDialog.Builder(this@MovieRegisterActivity);
-                    builder.setTitle("Not autho");
-                    builder.setMessage("Not auth");
-                    builder.setPositiveButton("Yes") { dialog, which ->
-                        dialog.dismiss();
-                    };
-                    //afficher le modal
-                    builder.show();
+                    Helpers.showAlertDialog(this@MovieRegisterActivity, "You seem not authorized to do that..", "Error", null)
                 }
             }
 

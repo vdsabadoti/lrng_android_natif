@@ -1,7 +1,6 @@
 package com.example.demoeni.utils
 
-class User(var mail: String? = "", var nickname: String? = "", var password: String? = "", var city: String? = "", var postalCode : String? = null,
-           var phoneNumber : String? = null, var token : Any? = "") {
+class User(var token : Any? = "") {
 
     fun tokenExist() : Boolean {
         return (token != "");

@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/edtForm"
-                android:text="@={registration.user.nickname}"
+                android:text="@={registration.person.nickname}"
                 />
 
             <EditText
@@ -87,7 +87,7 @@
                 style="@style/edtForm"
                 android:hint="Mail"
                 android:inputType="textEmailAddress"
-                android:text="@={registration.user.mail}"
+                android:text="@={registration.person.mail}"
                 />
 
             <EditText
@@ -96,7 +96,7 @@
                 style="@style/edtForm"
                 android:hint="Postal code"
                 android:inputType="number"
-                android:text="@={registration.user.postalCode}"
+                android:text="@={registration.person.postalCode}"
                 />
 
             <EditText
@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 style="@style/edtForm"
                 android:hint="City"
-                android:text="@={registration.user.city}"
+                android:text="@={registration.person.city}"
                 />
 
 
@@ -115,7 +115,7 @@
                 style="@style/edtForm"
                 android:hint="Phone number"
                 android:inputType="phone"
-                android:text="@={registration.user.phoneNumber}"
+                android:text="@={registration.person.phoneNumber}"
                 />
 
             <EditText
@@ -124,7 +124,7 @@
                 style="@style/edtForm"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:text="@={registration.user.password}"
+                android:text="@={registration.person.password}"
                 />
 
             <EditText

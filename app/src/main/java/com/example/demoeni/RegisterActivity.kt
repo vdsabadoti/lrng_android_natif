@@ -1,6 +1,5 @@
 package com.example.demoeni
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -9,8 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.databinding.ActiviyRegistrationBinding
 import com.example.demoeni.services.RegistrationService
+import com.example.demoeni.utils.Helpers
 import com.example.demoeni.viewmodel.RegisterViewModel
-import com.example.demoeni.utils.User
+import com.example.demoeni.viewmodel.Person
 import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
@@ -22,7 +22,7 @@ class RegisterActivity : ComponentActivity() {
 
         myView = DataBindingUtil.setContentView(this, R.layout.activiy_registration);
 
-        myView.registration = RegisterViewModel(User(), "");
+        myView.registration = RegisterViewModel(Person(), "");
 
     }
 
@@ -46,16 +46,13 @@ class RegisterActivity : ComponentActivity() {
     fun onClickModalDisplay(view: View){
         //le code pour construire un modal
         lifecycleScope.launch {
-            val response = RegistrationService.RegistrationApi.retrofitService.registration(myView.registration?.user!!)
+            Helpers.showProgressDialog(this@RegisterActivity, "Loading");
+            val response = RegistrationService.RegistrationApi.retrofitService.registration(myView.registration?.person!!)
+            Helpers.closeProgressDialog();
             if (response.code == "200") {
-                val builder = AlertDialog.Builder(this@RegisterActivity);
-                builder.setTitle("Registration");
-                builder.setMessage("User created with success");
-                builder.setPositiveButton("Ok") { dialog, which ->
-                    dialog.dismiss();
-                };
-                //afficher le modal
-                builder.show();
+                Helpers.showAlertDialog(this@RegisterActivity, "User created with success", "Success", LoginActivity::class)
+            } else {
+                Helpers.showAlertDialog(this@RegisterActivity, "Invalid champs", "Error", null)
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.example.demoeni
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
@@ -11,7 +10,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.databinding.ActivityLoginBinding
 import com.example.demoeni.services.LoginService
+import com.example.demoeni.utils.Helpers
 import com.example.demoeni.utils.User
+import com.example.demoeni.viewmodel.Person
 import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
@@ -23,7 +24,7 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState);
         //liaison avec le xml (pour la vue)
         vm = DataBindingUtil.setContentView(this, R.layout.activity_login);
-        vm.user = User();
+        vm.person = Person();
 
         //on recupère les elements de la vue par ID
         val mTextViewForgotPassword = vm.forgotPassword;
@@ -71,37 +72,17 @@ class LoginActivity : ComponentActivity() {
     fun onClickModalDisplay(view: View){
         //le code pour construire un modal
         lifecycleScope.launch {
-
-            val response = LoginService.LoginApi.retrofitService.login(vm.user!!)
+            Helpers.showProgressDialog(this@LoginActivity, "Loading");
+            val response = LoginService.LoginApi.retrofitService.login(vm.person!!)
             if (response.code == "200") {
                 User.getInstance()?.setValidToken(response.data);
-
-                var builder = AlertDialog.Builder(this@LoginActivity);
-                builder.setTitle(response.code);
-                builder.setMessage(User.getInstance()?.getValidToken()?.toString());
-                builder.setPositiveButton("Ok") { dialog, which ->
-                    dialog.dismiss();
-                    val intent = Intent(applicationContext, MoviesListActivity::class.java);
-                    startActivity(intent);
-                };
-                //afficher le modal
-                builder.show();
+                Helpers.closeProgressDialog();
+                Helpers.showAlertDialog(this@LoginActivity, "You are connected", "Success", MoviesListActivity::class)
             } else {
-                val builder = AlertDialog.Builder(this@LoginActivity);
-                builder.setTitle("Erreur");
-                builder.setMessage(response.message);
-                builder.setPositiveButton("KO") { dialog, which ->
-                    dialog.dismiss();
-                };
-                builder.show();
+                Helpers.closeProgressDialog();
+                Helpers.showAlertDialog(this@LoginActivity, "Wrong credentials", "Error", null)
             }
-
-
-
         }
-
-
     }
-
 }
 

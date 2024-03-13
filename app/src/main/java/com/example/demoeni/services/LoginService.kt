@@ -2,6 +2,7 @@ package com.example.demoeni.services
 
 import com.example.demoeni.viewmodel.BusinessResponse
 import com.example.demoeni.utils.User
+import com.example.demoeni.viewmodel.Person
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -30,7 +31,7 @@ interface LoginService {
 
     //If successfull, returns a string with a token
     @POST("login")
-    suspend fun login(@Body user : User) : BusinessResponse<Any>
+    suspend fun login(@Body person : Person) : BusinessResponse<Any>
 
 
     object LoginApi {

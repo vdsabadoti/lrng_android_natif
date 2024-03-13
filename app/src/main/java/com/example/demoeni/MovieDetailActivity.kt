@@ -1,13 +1,12 @@
 package com.example.demoeni
 
-import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.databinding.ActivityMovieDetailBinding
 import com.example.demoeni.services.MovieService
+import com.example.demoeni.utils.Helpers
 import com.example.demoeni.utils.User
 import kotlinx.coroutines.launch
 
@@ -25,19 +24,14 @@ class MovieDetailActivity : ComponentActivity() {
 
         //Recuperer les données d'un API
         lifecycleScope.launch {
+            Helpers.showProgressDialog(this@MovieDetailActivity, "Loading");
             val response = MovieService.MovieApi.retrofitService.getMovieById(User.getInstance()?.getValidToken(), id);
+            Helpers.closeProgressDialog();
             if (response.code == "200") {
                 vm.movie = response.data;
             } else {
-                val builder = AlertDialog.Builder(this@MovieDetailActivity);
-                builder.setTitle("Not authorized");
-                builder.setMessage(response.message);
-                builder.setPositiveButton("OK") { dialog, which ->
-                    dialog.dismiss();
-                };
-                builder.show();
+                Helpers.showAlertDialog(this@MovieDetailActivity, "You seem not authorized to do that..", "Error", null)
             }
-
             //Picasso.get().load("https://upload.wikimedia.org/wikipedia/en/0/0c/The_VelociPastor.jpg").into(vm.thumbnail)
         }
 

@@ -7,6 +7,7 @@ import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.databinding.DataBindingUtil
 import com.example.demoeni.databinding.ActivityLostPasswordBinding
+import com.example.demoeni.utils.Helpers
 import com.example.demoeni.viewmodel.ForgotPasswordViewModel
 import kotlin.reflect.KClass
 
@@ -39,19 +40,7 @@ class LostPasswordActivity : ComponentActivity() {
     }
 
     fun onClickModalDisplay(view: View){
-        //le code pour construire un modal
-        var builder = AlertDialog.Builder(this);
-        builder.setTitle("Forgot password");
-        builder.setMessage("Email sent to " +
-                "${myView.viewModel?.mail}. " +
-                "Please verify your inbox.");
-        builder.setPositiveButton("Ok") { dialog, which ->
-            dialog.dismiss();
-        };
-        //afficher le modal
-        builder.show();
+        Helpers.showAlertDialog(this@LostPasswordActivity, "An email was sent to ${myView.viewModel?.mail}", "Email sent", null)
     }
-
-
 }
 
