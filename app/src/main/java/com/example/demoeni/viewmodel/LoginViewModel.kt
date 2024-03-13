@@ -13,8 +13,8 @@ import kotlin.reflect.KClass
 class LoginViewModel(var person: Person = Person()) :
     ViewModel() {
 
-    public val forgotPassword : String = "Forgot password ?"
-    public val signUp : String = "Sign Up"
+    val forgotPassword : String = "Forgot password ?"
+    val signUp : String = "Sign Up"
 
     fun newPage(context : Context, classType : KClass<*>) {
         Helpers.openActivity(context, classType)

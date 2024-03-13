@@ -26,7 +26,7 @@ class LoginActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
-        //liaison avec le xml (pour la vue)
+
         vm = DataBindingUtil.setContentView(this, R.layout.activity_login);
         vm.lifecycleOwner = this;
         vm.loginViewModel = loginViewModel;
