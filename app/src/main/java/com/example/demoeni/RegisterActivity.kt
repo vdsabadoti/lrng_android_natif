@@ -22,7 +22,7 @@ class RegisterActivity : ComponentActivity() {
         myView = DataBindingUtil.setContentView(this, R.layout.activiy_registration);
         myView.lifecycleOwner = this
 
-        myView.registration = registerViewModel;
+        myView.registerModelView = registerViewModel;
 
         myView.loginBtn.setOnClickListener(){
             registerViewModel.loginPage(this@RegisterActivity);

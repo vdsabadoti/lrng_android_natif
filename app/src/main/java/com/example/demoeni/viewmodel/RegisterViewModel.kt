@@ -1,9 +1,7 @@
 package com.example.demoeni.viewmodel
 
 import android.content.Context
-import android.view.View
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.LoginActivity
 import com.example.demoeni.utils.Helpers
 import androidx.lifecycle.viewModelScope
