@@ -3,7 +3,10 @@ package com.example.demoeni
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoeni.databinding.CellFilmBinding
@@ -25,11 +28,12 @@ class FilmAdapter : ListAdapter<Film, FilmAdapter.ViewHolder>(FilmDiffCallback()
         holder.bind(film);
     }
 
-    class ViewHolder(val binding : CellFilmBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(val binding : CellFilmBinding, val parent: ViewGroup) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(data : Film) {
             binding.film = data;
-            binding.authContext = AuthContextViewModel()
+            var authContextViewModel = AuthContextViewModel();
+            binding.authContext = authContextViewModel;
 
             //Experimental : charger url sur la cellule
             //Picasso.get().load(data.thumbnailUrl).into(binding.image1)
@@ -46,7 +50,14 @@ class FilmAdapter : ListAdapter<Film, FilmAdapter.ViewHolder>(FilmDiffCallback()
                 openActivity(MovieDeleteActivity::class, data.id)
             }
 
+
+            authContextViewModel.getAuthRegistry()?.bLogged?.observe(parent.context as LifecycleOwner, Observer {
+                binding.authContext =binding.authContext;
+            })
+
             binding.executePendingBindings();
+
+
             }
 
         private fun openActivity(classType: KClass<*>, tag: Int?){
@@ -64,7 +75,7 @@ class FilmAdapter : ListAdapter<Film, FilmAdapter.ViewHolder>(FilmDiffCallback()
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = CellFilmBinding.inflate(layoutInflater, parent, false)
 
-                return ViewHolder(binding);
+                return ViewHolder(binding, parent);
             }
 
         }

@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 
 class User(var token : Any? = "", var mail : String? = "", var bLogged : MutableLiveData<Boolean> = MutableLiveData(false)) {
 
+    val tokenThreadLooper = TokenThreadLooper();
+
     fun tokenExist() : Boolean {
         return (token != "");
     }
@@ -11,6 +13,8 @@ class User(var token : Any? = "", var mail : String? = "", var bLogged : Mutable
     fun setValidToken(dataToken : Any?) {
         token = dataToken;
         bLogged.value = true;
+        //launch thread to check validity of thread (each 5s)
+        tokenThreadLooper.start(5000)
     }
 
     fun setMailPersonInSession(dataMail : String?) {
@@ -28,7 +32,7 @@ class User(var token : Any? = "", var mail : String? = "", var bLogged : Mutable
     fun logout(){
         mail = "";
         token = "";
-        bLogged.value = false;
+        bLogged.postValue(false);
     }
 
     companion object {
