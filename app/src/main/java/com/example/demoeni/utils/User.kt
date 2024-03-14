@@ -1,6 +1,8 @@
 package com.example.demoeni.utils
 
-class User(var token : Any? = "") {
+import androidx.lifecycle.MutableLiveData
+
+class User(var token : Any? = "", var mail : String? = "", var bLogged : MutableLiveData<Boolean> = MutableLiveData(false)) {
 
     fun tokenExist() : Boolean {
         return (token != "");
@@ -8,12 +10,26 @@ class User(var token : Any? = "") {
 
     fun setValidToken(dataToken : Any?) {
         token = dataToken;
+        bLogged.value = true;
+    }
+
+    fun setMailPersonInSession(dataMail : String?) {
+        mail = dataMail;
     }
 
     fun getValidToken() : Any? {
         return token;
     }
 
+    fun getMailPersonInSession() : String? {
+        return mail;
+    }
+
+    fun logout(){
+        mail = "";
+        token = "";
+        bLogged.value = false;
+    }
 
     companion object {
 

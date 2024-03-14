@@ -7,8 +7,8 @@
 
     <data>
         <variable
-            name="movie"
-            type="com.example.demoeni.viewmodel.Film"
+            name="movieEditViewModel"
+            type="com.example.demoeni.viewmodel.MovieEditViewModel"
             />
     </data>
 
@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@={movie.title}"/>
+                    android:text="@={movieEditViewModel.movie.title}"/>
             </LinearLayout>
 
             <LinearLayout
@@ -90,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@={movie.duration}"/>
+                    android:text="@={movieEditViewModel.movie.duration}"/>
             </LinearLayout>
 
             <LinearLayout
@@ -108,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@={movie.year}"/>
+                    android:text="@={movieEditViewModel.movie.year}"/>
             </LinearLayout>
 
             <LinearLayout
@@ -126,7 +126,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/white"
-                    android:text="@={movie.synopsis}"/>
+                    android:text="@={movieEditViewModel.movie.synopsis}"/>
             </LinearLayout>
 
             <LinearLayout

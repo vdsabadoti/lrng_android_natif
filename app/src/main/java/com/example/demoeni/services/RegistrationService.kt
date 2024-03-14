@@ -8,7 +8,10 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 
 interface RegistrationService {
@@ -25,7 +28,13 @@ interface RegistrationService {
     }
 
     @POST("signup")
-    suspend fun registration(@Body person: Person) : BusinessResponse<Any>
+    suspend fun registration(@Body person: Person?) : BusinessResponse<Any>
+
+    @POST("person/modify")
+    suspend fun modifPerson(@Header("authorization") token: Any?, @Body person: Person?) : BusinessResponse<Any>
+
+    @GET("person/{mail}")
+    suspend fun getPerson(@Header("authorization") token: Any?, @Path("mail") mail : String) : BusinessResponse<Person>
 
 
     object RegistrationApi {

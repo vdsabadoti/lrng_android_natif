@@ -29,7 +29,7 @@ class RegisterActivity : ComponentActivity() {
         }
 
         myView.singUpBtn.setOnClickListener(){
-            registerViewModel.createPerson(this@RegisterActivity, registerViewModel.person)
+            registerViewModel.createPerson(this@RegisterActivity)
         }
 
     }

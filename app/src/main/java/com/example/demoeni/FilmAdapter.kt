@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demoeni.databinding.CellFilmBinding
 import com.example.demoeni.services.MovieService
+import com.example.demoeni.viewmodel.AuthContextViewModel
 import com.example.demoeni.viewmodel.Film
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
@@ -28,6 +29,7 @@ class FilmAdapter : ListAdapter<Film, FilmAdapter.ViewHolder>(FilmDiffCallback()
 
         fun bind(data : Film) {
             binding.film = data;
+            binding.authContext = AuthContextViewModel()
 
             //Experimental : charger url sur la cellule
             //Picasso.get().load(data.thumbnailUrl).into(binding.image1)

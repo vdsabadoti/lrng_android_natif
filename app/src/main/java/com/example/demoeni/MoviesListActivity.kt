@@ -12,6 +12,7 @@ import com.example.demoeni.services.MovieService
 import com.example.demoeni.utils.Helpers
 import com.example.demoeni.viewmodel.Film
 import com.example.demoeni.utils.User
+import com.example.demoeni.viewmodel.AuthContextViewModel
 import com.example.demoeni.viewmodel.LoginViewModel
 import com.example.demoeni.viewmodel.MovieListsViewModel
 import kotlinx.coroutines.launch
@@ -30,10 +31,17 @@ class MoviesListActivity : ComponentActivity() {
 
         vm.rvFilms.adapter = moviesListsViewModel.adapter;
 
+        val authContextViewModel = AuthContextViewModel()
+        vm.authContext = authContextViewModel;
+
         //If inside moviesListViewModel the movies observable change its value
         //this function is called and the movies list is sent to the adapter
         moviesListsViewModel.movies.observe(this, Observer{
             moviesListsViewModel.adapter.submitList(it)
+        })
+
+        authContextViewModel.getAuthRegistry()?.bLogged!!.observe(this, Observer {
+            vm.moviesListsViewModel = vm.moviesListsViewModel;
         })
 
         //call API to get movies from DB if button is clicked

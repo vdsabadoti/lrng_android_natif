@@ -3,6 +3,7 @@ package com.example.demoeni.viewmodel
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import com.example.demoeni.utils.Helpers
 import androidx.lifecycle.viewModelScope
 import com.example.demoeni.MoviesListActivity
@@ -12,23 +13,22 @@ import com.example.demoeni.utils.User
 import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
-class MovieDetailViewModel( var id : Int , var movie: MutableLiveData<Film> = MutableLiveData()) :
+class MovieRegisterViewModel(var movie: Film = Film(10)) :
     ViewModel() {
 
-    fun getMovie(context: Context){
+    fun create(context: Context){
         viewModelScope.launch {
             Helpers.showProgressDialog(context, "Loading");
-            val response = MovieService.MovieApi.retrofitService.getMovieById(id);
-            Helpers.closeProgressDialog();
-            if (response.code == "200") {
-                movie.value = response.data!!;
+            val response = MovieService.MovieApi.retrofitService.editMovieById(User.getInstance()?.getValidToken(), movie);
+            Helpers.closeProgressDialog()
+            if (response.code == "202") {
+                Helpers.showAlertDialog(context, "The movie was created", "Success", MoviesListActivity::class)
             } else {
                 Helpers.showAlertDialog(context, "You seem not authorized to do that..", "Error", null)
             }
-            //Picasso.get().load("https://upload.wikimedia.org/wikipedia/en/0/0c/The_VelociPastor.jpg").into(vm.thumbnail)
         }
+
     }
-    //Recuperer les données d'un API
 
 
     }

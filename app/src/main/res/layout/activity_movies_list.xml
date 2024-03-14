@@ -10,6 +10,9 @@
             type="com.example.demoeni.viewmodel.MovieListsViewModel"
             name="moviesListsViewModel"
             />
+        <variable
+            name="authContext"
+            type="com.example.demoeni.viewmodel.AuthContextViewModel" />
     </data>
 
     <LinearLayout
@@ -42,7 +45,9 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             style="@style/edtFormGradient"
-            android:text="ADD MOVIE"/>
+            android:text="ADD MOVIE"
+            android:visibility="@{authContext.isLoggedVisibility(false)}"
+            />
 
     </LinearLayout>
 </layout>

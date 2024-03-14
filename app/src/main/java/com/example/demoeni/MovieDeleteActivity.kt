@@ -1,11 +1,10 @@
 package com.example.demoeni
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.demoeni.services.MovieService
 import com.example.demoeni.utils.Helpers
-import com.example.demoeni.utils.User
 import kotlinx.coroutines.launch
 
 class MovieDeleteActivity : ComponentActivity() {
@@ -16,17 +15,22 @@ class MovieDeleteActivity : ComponentActivity() {
         val b = intent.extras
         val id = b!!.getInt("id");
 
-        //Envoyer une requete POST à l'API
+        delete(id, this@MovieDeleteActivity);
+
+        }
+
+    private fun delete(id : Int, context : Context) {
         lifecycleScope.launch {
-            Helpers.showProgressDialog(this@MovieDeleteActivity, "Loading");
-            val response = MovieService.MovieApi.retrofitService.delete(User.getInstance()?.getValidToken(), id);
+            Helpers.showProgressDialog(context, "Loading");
+            val response = com.example.demoeni.services.MovieService.MovieApi.retrofitService.delete(com.example.demoeni.utils.User.getInstance()?.getValidToken(), id);
             Helpers.closeProgressDialog()
             if (response.code == "200") {
-                Helpers.showAlertDialog(this@MovieDeleteActivity, "The movie was deleted", "Success", MoviesListActivity::class)
+                Helpers.showAlertDialog(context, "The movie was deleted", "Success", com.example.demoeni.MoviesListActivity::class)
             }
             else {
-                Helpers.showAlertDialog(this@MovieDeleteActivity, "You seem not authorized to do that..", "Error", null)
+                Helpers.showAlertDialog(context, "You seem not authorized to do that..", "Error", null)
             }
         }
-        }
+    }
+
     }

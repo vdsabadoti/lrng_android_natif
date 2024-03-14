@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.demoeni.utils.Helpers
 import androidx.lifecycle.viewModelScope
+import com.example.demoeni.MainActivity
 import com.example.demoeni.MoviesListActivity
 import com.example.demoeni.services.LoginService
 import com.example.demoeni.utils.User
@@ -26,8 +27,9 @@ class LoginViewModel(var person: Person = Person()) :
             val response = LoginService.LoginApi.retrofitService.login(person)
             if (response.code == "200") {
                 User.getInstance()?.setValidToken(response.data);
+                User.getInstance()?.setMailPersonInSession(person.mail);
                 Helpers.closeProgressDialog();
-                Helpers.showAlertDialog(context, "You are connected", "Success", MoviesListActivity::class)
+                Helpers.showAlertDialog(context, "You are connected", "Success", MainActivity::class)
             } else {
                 Helpers.closeProgressDialog();
                 Helpers.showAlertDialog(context, "Wrong credentials", "Error", null)

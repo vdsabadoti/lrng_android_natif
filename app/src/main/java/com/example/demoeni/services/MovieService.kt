@@ -35,7 +35,10 @@ interface MovieService {
     suspend fun getMoviesV2(@Header("authorization") token: Any?) : BusinessResponse<List<Film>>
 
     @GET("/v2/movie/{id}")
-    suspend fun getMovieById(@Header("authorization") token: Any?, @Path("id") id : Int) : BusinessResponse<Film>
+    suspend fun getMovieByIdWithAuth(@Header("authorization") token: Any?, @Path("id") id : Int) : BusinessResponse<Film>
+
+    @GET("/movie/{id}")
+    suspend fun getMovieById(@Path("id") id : Int) : BusinessResponse<Film>
 
     @POST("/v2/movie/edit/{id}")
     suspend fun editMovieById(@Header("authorization") token: Any?, @Path("id") id : Int?, @Body film : Film?) : BusinessResponse<Film>

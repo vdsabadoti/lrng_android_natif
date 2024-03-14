@@ -6,6 +6,9 @@
             name="film"
             type="com.example.demoeni.viewmodel.Film"
             />
+        <variable
+            name="authContext"
+            type="com.example.demoeni.viewmodel.AuthContextViewModel" />
     </data>
 
     <LinearLayout
@@ -104,6 +107,7 @@
                         android:layout_weight="1"
                         android:src="@drawable/edit"
                         android:tint="@color/white"
+                        android:visibility="@{authContext.isLoggedVisibility(false)}"
                         android:tag="@{film.id}"
                         />
 
@@ -114,6 +118,7 @@
                         android:layout_weight="1"
                         android:src="@drawable/delete"
                         android:tint="@color/white"
+                        android:visibility="@{authContext.isLoggedVisibility(false)}"
                         android:tag="@{film.id}"
                         />
 

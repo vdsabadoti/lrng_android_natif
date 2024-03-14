@@ -3,12 +3,9 @@ package com.example.demoeni
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
 import com.example.demoeni.databinding.ActivityMovieEditBinding
-import com.example.demoeni.services.MovieService
-import com.example.demoeni.utils.Helpers
-import com.example.demoeni.utils.User
-import kotlinx.coroutines.launch
+import com.example.demoeni.viewmodel.MovieEditViewModel
 
 class MovieEditActivity : ComponentActivity() {
 
@@ -21,33 +18,21 @@ class MovieEditActivity : ComponentActivity() {
         val id = b!!.getInt("id");
 
         vm = DataBindingUtil.setContentView(this, R.layout.activity_movie_edit);
+        vm.lifecycleOwner = this;
+        val movieEditViewModel = MovieEditViewModel(id);
+        vm.movieEditViewModel = movieEditViewModel;
+
+        movieEditViewModel.movie.observe(this, Observer {
+            vm.movieEditViewModel = vm.movieEditViewModel;
+        })
 
         vm.save.setOnClickListener(){
-            save();
+            movieEditViewModel.save(this@MovieEditActivity);
         }
-        //Recuperer les données d'un API
-        lifecycleScope.launch {
-            Helpers.showProgressDialog(this@MovieEditActivity, "Loading");
-            val response = MovieService.MovieApi.retrofitService.getMovieById(User.getInstance()?.getValidToken(), id);
-            Helpers.closeProgressDialog()
-            if (response.code == "200") {
-                vm.movie = response.data;
-            } else {
-                Helpers.showAlertDialog(this@MovieEditActivity, "You seem not authorized to do that..", "Error", MoviesListActivity::class)
-            }
-        }
-        }
-        private fun save(){
-            lifecycleScope.launch {
-                Helpers.showProgressDialog(this@MovieEditActivity, "Loading");
-                val response = MovieService.MovieApi.retrofitService.editMovieById(User.getInstance()?.getValidToken(), vm.movie?.id, vm.movie);
-                Helpers.closeProgressDialog()
-                if (response.code == "200") {
-                    vm.movie = response.data;
-                    Helpers.showAlertDialog(this@MovieEditActivity, "The movie was updated", "Success", MoviesListActivity::class)
-                } else {
-                    Helpers.showAlertDialog(this@MovieEditActivity, "You seem not authorized to do that..", "Error", MoviesListActivity::class)
-                }
-            }
-        }
+
+        movieEditViewModel.getMovie(this@MovieEditActivity);
+    }
+
+
+
     }

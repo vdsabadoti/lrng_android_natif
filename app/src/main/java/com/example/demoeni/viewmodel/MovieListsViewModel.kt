@@ -22,7 +22,7 @@ class MovieListsViewModel(var adapter: FilmAdapter = FilmAdapter(), var movies :
     fun refresh(context: Context){
         viewModelScope.launch {
             Helpers.showProgressDialog(context, "Loading");
-            val response = MovieService.MovieApi.retrofitService.getMoviesV2(User.getInstance()?.getValidToken());
+            val response = MovieService.MovieApi.retrofitService.getMovies();
             if (response.code == "200") {
                 movies.value = response.data
             } else {
